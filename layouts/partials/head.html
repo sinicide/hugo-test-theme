@@ -1,0 +1,18 @@
+<head>
+<meta charset="utf-8">
+<meta name="description" content="{{ if eq .Description "" }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}">
+{{- with $.Param "keywords" }}
+<meta name="keywords" content="{{ delimit . "," }}">
+{{- end }}
+{{- with $.Param "author" }}
+<meta name="author" content="{{ . }}">
+{{- end }}
+{{ hugo.Generator }}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- bulma css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+
+<title>{{ with .Title }}{{.}} - {{ end }}{{ .Site.Title }}</title>
+{{ template "_internal/twitter_cards.html" . }}
+{{ template "_internal/google_analytics_async.html" . }}
+</head>
