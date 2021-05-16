@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en-US{{ end }}">
-<head>
-<meta charset="utf-8">
-<meta name="description" content="{{ if eq .Description "" }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}">
-{{- with $.Param "keywords" }}
-<meta name="keywords" content="{{ delimit . "," }}">
-{{- end }}
-{{- with $.Param "author" }}
-<meta name="author" content="{{ . }}">
-{{- end }}
-{{ hugo.Generator }}
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>{{ with .Title }}{{.}} - {{ end }}{{ .Site.Title }}</title>
-</head>
-<body>
-
-<header>
-  <div>
-    <p>This is a header</p>
+<header class="hero is-primary is-large">
+  <div class="hero-body">
+    <p class="title">{{ .Title | default .Site.Title }}</p>
+    <p class="subtitle">This is a header</p>
   </div>
 </header>
