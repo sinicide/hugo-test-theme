@@ -1,0 +1,38 @@
+{{ $pager := .Paginator }}
+{{ $currentPage := $pager.PageNumber }}
+{{ $displayPadding := math.Floor (div .Site.Params.displayPagination 2) }}
+{{ $startPagination := sub $currentPage $displayPadding }}
+{{ $endPagination := add $currentPage $displayPadding }}
+<div class="container mt-6">
+    <nav class="pagination is-medium is-centered">   
+    {{ if gt $pager.TotalPages 1 }}
+        {{ if not ($pager.HasPrev) }}
+            <a href="{{ $pager.Next.URL }}" class="pagination-next pagination-link has-background-primary">Read More</a>
+        {{ else }}
+            {{ if $pager.HasPrev }}
+                <a href="{{ $pager.Prev.URL }}" class="pagination-previous">Previous</a>
+            {{ end }}
+                <ul class="pagination-list">
+            {{ range $value := $pager.Pagers }}
+                {{ if or (eq (int (sub $currentPage (add $displayPadding 1))) $value.PageNumber) (eq (int (add $currentPage (add $displayPadding 1))) $value.PageNumber) }}
+                   <span class="pagination-link">...</span>
+                {{ end }}
+                
+                {{ if and (ge $value.PageNumber $startPagination) (le $value.PageNumber $endPagination) }}
+                    <li class="pagination-link {{ if eq $value $pager }}is-current{{ end }}">
+                    {{ if ne $value $pager }}<a href="{{ $value.URL }}">{{ end }}
+                        {{ $value.PageNumber }}
+                    {{ if ne $value $pager }}</a>{{ end }}
+                    </li>
+                {{ end }}
+
+            {{ end }}
+                </ul>
+
+            {{ if $pager.HasNext }}
+                <a href="{{ $pager.Next.URL }}" class="pagination-next">Next</a>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    </nav>
+</div>
