@@ -1,9 +1,10 @@
-<menu>
-    <ul>
-        {{ range .Site.Menu.main }}
-            <li>
-                <a href="{{ .Url }}">{{ .Name }}</a>
-            </li>
+{{ $menu := (cond .IsHome .Site.Menus.main .Site.Menus.blog) }}
+<div class="container">
+    <nav class="navbar">
+        <div class="navbar-menu is-size-4">
+        {{ range $menu }}
+            <a href="{{ .URL }}" title="{{ .Identifier }}" class="navbar-item">{{ .Name }}</a>
         {{ end }}
-    </ul>
-</menu>
+        </div>
+    </nav>    
+</div>
