@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container mt-6">
+    <h2 class="title">{{ .Title | humanize }}</h2>
+    <h3 class="subtitle">{{ len .Pages }} Articles</h3>
+    <hr>
+    {{ $pager := .Paginate (where .Data.Pages "Type" "blog") }}
+    {{ range $pager.Pages }}
+    <article class="content is-medium">
+        <h1 class="title">{{ .Title }}</h1>
+        <h4 class="date title">{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") }}</h4>
+        <h5 class="subtitle">Reading Time: {{ math.Round (div (countwords .Content) 220.0) }} minutes.</h5>
+        <p>{{ .Summary }}</p>
+        <div class="has-text-right">
+            <a href="{{ .Permalink }}" class="button is-link is-medium">Read More</a>
+        </div>
+    </article>
+    {{ end }}
+</div>
+{{ partial "pagination.html" . }}
+{{ partial "categories.html" . }}
+{{ end }}
