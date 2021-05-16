@@ -1,0 +1,12 @@
+<section class="section">  
+    <div class="level">
+    {{ range .Site.Params.socials }}
+        <div class="level-item has-text-centered">
+            <div>
+                <p><a class="button" href="{{ .url }}" title="{{ .title }}">{{ .name }}</a></p>
+                <p>{{ .title }}</p>
+            </div>
+        </div>
+    {{ end }}
+    </div>
+</section>
