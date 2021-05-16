@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="container">
+    <article class="content">
+
+    <div class="content-header">
+        {{ with .Params }}
+        <img src="{{ .Image }}" alt="{{ .ImageCaption }}" />
+        {{ end }}
+        <h1 class="title">{{ .Title }}</h1>
+        
+        <h2 class="date subtitle">{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") }}</h2>
+        <h5>Reading Time: {{ math.Round (div (countwords .Content) 220.0) }} minutes.</h5>
+    </div>
+
+    <h3>TOC</h3>
+    <p>{{ .TableOfContents }}</p>
+    <section aria-label="tldr"><p><span class="subtitle">TL;DR: </span>{{ .Summary }}</p></section>
+    <hr>
+    <p>{{ .Content }}</p>
+
+    <div class="content-footer">
+
+        <h2 class="subtitle">By: {{ .Site.Params.Author }}</h2>
+        <h3 class="subtitle date">Last Modified on {{ .Lastmod.Format "January 2, 2006 15:04:05 MST" }} | <a href="https://github.com/{{ .Site.Params.github.user }}/{{ .Site.Params.github.contentRepo }}/commits/main/{{ .File.Path }}">see changelog</a></h3>
+        {{ if .Site.Params.Taxonomy.tags }}
+        <h4>Tags</h4>
+        {{ range (.GetTerms "tags") }}
+        <span class="tag is-medium"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></span>
+        {{ end }}
+        {{ end }}
+
+        {{ if .Site.Params.Taxonomy.category }}
+        <h4>Categories</h4>
+        {{ range (.GetTerms "categories") }}
+        <span class="tag is-medium"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></span>
+        {{ end }}
+        {{ end }}
+
+        <!-- share this -->
+
+    </div>
+    </article>
+</div>
+<hr>
+{{ partial "categories.html" . }}
+{{ end }}
