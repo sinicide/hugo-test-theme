@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="container mt-6">
+    <h1 class="title">{{ .Section | humanize }}</h1>
+    <div class="content">
+        <ul>
+            {{ range .Data.Terms.Alphabetical }}
+            <li>
+                <a href="{{ .Page.Permalink }}">{{ .Page.Title | humanize }}</a>  - {{ .Count }}
+            </li>
+        {{ end }}
+        </ul>
+    </div>
+</div>
+{{ end }}
