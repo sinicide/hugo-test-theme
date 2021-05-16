@@ -1,3 +1,21 @@
-<div>
-    <p>This is the home content</p>
-</div>
+<section class="section content is-size-5">
+    {{ with .GetPage "/about" }}
+    <h1 class="title">{{ .Title }}</h1>
+    <p>
+    {{ .Content }}
+    </p>
+    {{ end}}
+</section>
+<section class="section content is-size-5">
+    {{ with .GetPage "/contact" }}
+    <h1 class="title">{{ .Title }}</h1>
+    <a href="mailto:{{ .Site.Params.email }}" title="{{ .Site.Params.email }}" class="is-size-2">{{ .Site.Params.email }}</a>
+    <p>
+    {{ .Content }}
+    </p>
+    {{ end}}
+</section>
+<section class="section content is-size-5">
+    <h1 class="title">Social</h1>
+    {{ partial "social.html" . }}
+</section>
